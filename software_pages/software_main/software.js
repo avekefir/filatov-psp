@@ -1,6 +1,8 @@
 import { SoftwareProductCardComponent } from "../../software_components/software_product-card/software.js";
 import { SoftwareProductPage } from "../software_product/software.js";
 import { SoftwareAccordionComponent } from "../../software_components/software_accordion/software.js";
+import { ConcatArrays, IsPalindrome } from "../../homework/software.js";
+
 
 export class SoftwareMainPage {
     constructor(parent) {
@@ -22,6 +24,53 @@ export class SoftwareMainPage {
                         <button id="remove-last-btn" class="btn btn-danger">Удалить последний элемент</button>
                     </div>
                     <div id="main-accordion-container"></div>
+                    
+                    <!-- Блок с демонстрацией функций на данных ПО -->
+                    <div class="mt-5 pt-4 border-top">
+                        <h4 class="mb-3">Демонстрация функций</h4>
+                        
+                        <!-- Демонстрация ConcatArrays -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <strong>Функция ConcatArrays</strong>
+                            </div>
+                            <div class="card-body">
+                                <h5>Категории программ:</h5>
+                                <div id="concat-demo-container" class="mb-3"></div>
+                                <hr>
+                                <div class="mt-3">
+                                    <strong>Как это работает:</strong>
+                                    <p class="text-muted small mt-1">
+                                        Функция ConcatArrays объединяет все переданные массивы в одну строку, 
+                                        заменяя запятые на пробелы.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Демонстрация IsPalindrome -->
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>Функция IsPalindrome</strong>
+                            </div>
+                            <div class="card-body">
+                                <h5>Названия программ, которые являются палиндромами:</h5>
+                                <div id="palindrome-demo-container" class="mb-3"></div>
+                                <hr>
+                                <div class="mt-3">
+                                    <strong>Интерактивная проверка:</strong>
+                                    <div class="input-group mt-2">
+                                        <input type="text" id="custom-palindrome-input" class="form-control" placeholder="Введите текст для проверки...">
+                                        <button id="custom-check-palindrome" class="btn btn-success">Проверить</button>
+                                    </div>
+                                    <div id="custom-palindrome-result" class="alert alert-info mt-2 d-none"></div>
+                                    <p class="text-muted small mt-2">
+                                        Функция IsPalindrome игнорирует пробелы и регистр при проверке.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             `
         )
@@ -48,23 +97,139 @@ export class SoftwareMainPage {
                 id: 1,
                 src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYNGtQRIVpT5HGQHTBovxirUzbohLevSU9AQ&s",
                 title: "Microsoft Word",
-                text: "Текстовый редактор"
+                text: "Текстовый редактор",
+                categories: ["офисные", "текстовые редакторы", "microsoft"]
             },
             {
                 id: 2,
                 src: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/960px-Postgresql_elephant.svg.png",
                 title: "PostgreSQL",
-                text: "СУБД"
+                text: "СУБД",
+                categories: ["базы данных", "sql", "open source", "серверное ПО"]
             },
             {
                 id: 3,
                 src: "https://rskrf.ru/upload/iblock/e6c/3pughvx5iu7dzqo6adwlwxe3a38q7xc6.png",
                 title: "Телемост",
-                text: "Звонки и видеовстречи"
+                text: "Звонки и видеовстречи",
+                categories: ["видеосвязь", "конференции", "коммуникации", "российское ПО"]
             },
         ]
     }
     
+
+    displayConcatArraysDemo() {
+        const container = document.getElementById('concat-demo-container');
+        if (!container) return;
+        
+        const softwares = this.getSoftwareData();
+        
+        // Собираем все категории из всех программ в один массив
+        const allCategories = [];
+        softwares.forEach(software => {
+            if (software.categories && software.categories.length > 0) {
+                allCategories.push(...software.categories);
+            }
+        });
+        
+        // Используем ConcatArrays для объединения всех категорий
+        const allCategoriesString = ConcatArrays(allCategories);
+        
+        // Также показываем категории каждой программы отдельно
+        let html = `
+            <div class="alert alert-info">
+                <strong>Все категории ПО:</strong><br>
+                <span class="badge bg-primary p-2">${allCategoriesString}</span>
+            </div>
+            <div class="row">
+        `;
+        
+        softwares.forEach(software => {
+            if (software.categories && software.categories.length > 0) {
+                const categoriesString = ConcatArrays(software.categories);
+                html += `
+                    <div class="col-md-4 mb-2">
+                        <div class="card card-body bg-light">
+                            <strong>${software.title}</strong>
+                            <small class="text-muted">Категории: ${categoriesString}</small>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+        
+        html += `</div>`;
+        container.innerHTML = html;
+    }
+    
+    // Демонстрация IsPalindrome на названиях ПО
+    displayPalindromeDemo() {
+        const container = document.getElementById('palindrome-demo-container');
+        if (!container) return;
+        
+        const softwares = this.getSoftwareData();
+        
+        let html = '<div class="row">';
+        let palindromeFound = false;
+        
+        softwares.forEach(software => {
+            const isPalindrome = IsPalindrome(software.title);
+            
+            html += `
+                <div class="col-md-4 mb-3">
+                    <div class="card ${isPalindrome ? 'border-success' : 'border-secondary'}">
+                        <div class="card-body text-center">
+                            <h6 class="card-title">${software.title}</h6>
+                            ${isPalindrome ? 
+                                '<span class="badge bg-success">Палиндром</span>' : 
+                                '<span class="badge bg-secondary">Не палиндром</span>'
+                            }
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            if (isPalindrome) palindromeFound = true;
+        });
+        
+        html += '</div>';
+        
+        
+        container.innerHTML = html;
+    }
+    
+    // Проверка кастомного текста на палиндром
+    setupCustomPalindromeCheck() {
+        const input = document.getElementById('custom-palindrome-input');
+        const checkBtn = document.getElementById('custom-check-palindrome');
+        const resultDiv = document.getElementById('custom-palindrome-result');
+        
+        if (input && checkBtn && resultDiv) {
+            const checkText = () => {
+                const text = input.value.trim();
+                if (!text) {
+                    return;
+                }
+                
+                const isPalindrome = IsPalindrome(text);
+                
+                if (isPalindrome) {
+                    resultDiv.textContent = `" ${text} " - является палиндромом`;
+                    resultDiv.className = 'alert alert-success d-block';
+                } else {
+                    resultDiv.textContent = `" ${text} " - не является палиндромом.`;
+                    resultDiv.className = 'alert alert-danger d-block';
+                }
+            };
+            
+            checkBtn.addEventListener('click', checkText);
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') checkText();
+            });
+        }
+    }
+
+
     copyFirstElement() {
         const softwares = this.getSoftwareData();
         if (softwares.length === 0) return;
@@ -86,6 +251,8 @@ export class SoftwareMainPage {
         const softwareProductCard = new SoftwareProductCardComponent(productContainer);
         softwareProductCard.render(newSoftware, this.clickCard.bind(this));
         this.setupDeleteButton(newSoftware.id);
+
+        this.refreshDemos();
     }
 
     removeLastElement() {
@@ -101,6 +268,8 @@ export class SoftwareMainPage {
                 softwares.splice(index, 1);
             }
         }
+
+        this.refreshDemos();
     }
 
     deleteAccordionItem(itemId) {
@@ -113,6 +282,8 @@ export class SoftwareMainPage {
             if (removed) {
                 softwares.splice(index, 1);
                 console.log(`Элемент с ID ${itemId} удален`);
+
+                this.refreshDemos();
             }
         }
     }
@@ -126,6 +297,12 @@ export class SoftwareMainPage {
                 this.deleteAccordionItem(itemId);
             });
         }
+    }
+
+    refreshDemos() {
+        // Обновляем демонстрации после изменений в данных
+        this.displayConcatArraysDemo();
+        this.displayPalindromeDemo();
     }
         
     rendersoftwaresInAccordion(containers) {
@@ -149,6 +326,24 @@ export class SoftwareMainPage {
         document.getElementById('remove-last-btn').addEventListener('click', () => {
             this.removeLastElement();
         });
+
+        const refreshConcatBtn = document.getElementById('refresh-concat-demo');
+        if (refreshConcatBtn) {
+            refreshConcatBtn.addEventListener('click', () => {
+                this.displayConcatArraysDemo();
+            });
+        }
+        
+        // Кнопка проверки всех палиндромов
+        const checkAllBtn = document.getElementById('check-all-palindromes');
+        if (checkAllBtn) {
+            checkAllBtn.addEventListener('click', () => {
+                this.displayPalindromeDemo();
+            });
+        }
+        
+        // Настройка кастомной проверки палиндрома
+        this.setupCustomPalindromeCheck();
     }
 
     render() {
@@ -163,6 +358,10 @@ export class SoftwareMainPage {
         this.contentContainers = this.softwareAccordion.render(accordionData);
         
         this.rendersoftwaresInAccordion(this.contentContainers);
+        
+        this.displayConcatArraysDemo();
+        this.displayPalindromeDemo();
+
         this.setupButtons();
     }
 }
