@@ -1,5 +1,5 @@
 import { SoftwareProductCardComponent } from "../../software_components/software_product-card/software.js";
-import { SoftwaresoftwarePage } from "../software_product/software.js";
+import { SoftwareProductPage } from "../software_product/software.js";
 import { SoftwareAccordionComponent } from "../../software_components/software_accordion/software.js";
 
 export class SoftwareMainPage {
@@ -29,7 +29,7 @@ export class SoftwareMainPage {
     
     clickCard(e) {
         const cardId = e.target.closest('.card').dataset.id;
-        const softwarePage = new SoftwaresoftwarePage(this.parent, cardId)
+        const softwarePage = new SoftwareProductPage(this.parent, cardId)
         softwarePage.render()
     }
     
