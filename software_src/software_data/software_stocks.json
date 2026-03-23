@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYNGtQRIVpT5HGQHTBovxirUzbohLevSU9AQ&s",
+    "title": "Word",
+    "text": "Текстовый редактор"
+  },
+  {
+    "id": 2,
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/960px-Postgresql_elephant.svg.png",
+    "title": "PostgreSQL",
+    "text": "СУБД"
+  },
+  {
+    "id": 3,
+    "src": "https://rskrf.ru/upload/iblock/e6c/3pughvx5iu7dzqo6adwlwxe3a38q7xc6.png",
+    "title": "Телемост",
+    "text": "Звонки и видеовстречи"
+  }
+]

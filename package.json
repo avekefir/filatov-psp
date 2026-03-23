@@ -1,0 +1,21 @@
+{
+  "name": "filatov-psp",
+  "version": "1.0.0",
+  "description": "\"Программирование сетевых приложений\" # filatov-psp",
+  "main": "software_index.js",
+  "dependencies": {
+    "bootstrap": "^5.3.8",
+    "express": "^5.2.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node software_src/software_index.js",  
+    "dev": "nodemon software_src/software_index.js"  
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
