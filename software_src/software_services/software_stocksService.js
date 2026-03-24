@@ -1,13 +1,10 @@
 const fileService = require('./software_fileService');
-
 // Переменная для хранения пути к файлу данных, будет установлена при инициализации
 let dataFilePath;
-
 // Функция инициализации сервиса с путем к файлу данных
 const init = (filePath) => {
     dataFilePath = filePath;
 };
-
 const findAll = (title) => {
     const stocks = fileService.readData(dataFilePath);
     if (title) {
@@ -17,7 +14,6 @@ const findAll = (title) => {
     }
     return stocks;
 };
-
 const findOne = (id) => {
     const stocks = fileService.readData(dataFilePath);
     return stocks.find(stock => stock.id === id);
