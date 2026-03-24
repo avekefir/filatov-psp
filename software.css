@@ -1,5 +1,4 @@
-
-.my-btn { 
+.software { 
   margin-right: 5px;           
   margin-top: 5px;             
   width: 50px;                 
@@ -8,38 +7,39 @@
   border: none;                
   background: #63aa33;         
   color: white;                
-  font-size: 1.5rem;           
+  font-size: 1.5rem;         
+  font-weight: 500;  
   font-family: Arial, Helvetica, sans-serif;
   cursor: pointer;             
                                
   user-select: none;           
 } 
 
-.my-btn:hover {
-  background: #c0ff00; 
+.software:hover {
+  background: rgb(83, 145, 44); 
 }
 
-.my-btn.primary:hover{
-    background: #ffbc59;
+.software.primary:hover{
+    background: #da8b14;
 }
 
-.my-btn.secondary:hover{
-    background-color: #5dd1ff;
+.software.secondary:hover{
+    background-color: #2e9dc9;
 }
 
-.my-btn:active {
+.software:active {
   filter: brightness(130%);
 }
 
-.my-btn.primary { 
+.software.primary { 
   background: #ff9801; 
 }
 
-.my-btn.secondary { 
+.software.secondary { 
   background: #0A98D0; 
 }
 
-.my-btn.execute { 
+.software.execute { 
   width: 110px;         
   border-radius: 8px;   
 }
@@ -48,20 +48,22 @@
   border-radius: 12px;
   border: #a1a1a1 solid 2px;
   border-color: rgba(161,161,161,0.4);
-  width: 220px;
+  width: 334px;
   height: 50px;
   margin-bottom: 15px; 
   padding-right: 10px; 
   background: #fff; 
   text-align: right;   
   color: #000;         
-  font-size: 1.5rem;
+  font-size: 2.6rem;
+  font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
 }
 
 #btn_op_backspace{
     font-size: 24px;
-    width: 160px;
+    width: 110px;
 }
 
 body{
@@ -70,4 +72,9 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.background{
+  background-color: rgb(0, 93, 146);
+  padding: 12px;
+  border-radius: 12px;
 }
