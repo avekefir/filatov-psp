@@ -1,6 +1,7 @@
 import { SoftwareProductComponent } from "../../software_components/software_product/software.js"
 import { SoftwareBackButtonComponent } from "../../software_components/software_back-button/software.js"
 import { SoftwareMainPage } from "../software_main/software.js"
+import { Software3DViewerComponent } from "../../software_components/software-3d_viewer/software.js"
 
 export class SoftwareProductPage {
     constructor(parent, id) {
@@ -47,6 +48,7 @@ export class SoftwareProductPage {
             `
                 <div class="container">
                     <div id="product-page"></div>
+                    <div id="model-viewer-container" class="mt-4"></div>
                 </div>
             `
         )
@@ -68,5 +70,9 @@ export class SoftwareProductPage {
         const data = this.getData()
         const product = new SoftwareProductComponent(this.pageRoot)
         product.render(data)
+
+        const modelViewerContainer = document.getElementById('model-viewer-container');
+        const viewer3d = new Software3DViewerComponent(modelViewerContainer, this.id);
+        viewer3d.render();
     }
 }
