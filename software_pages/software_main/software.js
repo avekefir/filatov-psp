@@ -124,7 +124,6 @@ export class SoftwareMainPage {
         
         const softwares = this.getSoftwareData();
         
-        // Собираем все категории из всех программ в один массив
         const allCategories = [];
         softwares.forEach(software => {
             if (software.categories && software.categories.length > 0) {
@@ -132,10 +131,8 @@ export class SoftwareMainPage {
             }
         });
         
-        // Используем ConcatArrays для объединения всех категорий
         const allCategoriesString = ConcatArrays(allCategories);
         
-        // Также показываем категории каждой программы отдельно
         let html = `
             <div class="alert alert-info">
                 <strong>Все категории ПО:</strong><br>
@@ -162,7 +159,6 @@ export class SoftwareMainPage {
         container.innerHTML = html;
     }
     
-    // Демонстрация IsPalindrome на названиях ПО
     displayPalindromeDemo() {
         const container = document.getElementById('palindrome-demo-container');
         if (!container) return;
@@ -198,7 +194,6 @@ export class SoftwareMainPage {
         container.innerHTML = html;
     }
     
-    // Проверка кастомного текста на палиндром
     setupCustomPalindromeCheck() {
         const input = document.getElementById('custom-palindrome-input');
         const checkBtn = document.getElementById('custom-check-palindrome');
@@ -300,7 +295,6 @@ export class SoftwareMainPage {
     }
 
     refreshDemos() {
-        // Обновляем демонстрации после изменений в данных
         this.displayConcatArraysDemo();
         this.displayPalindromeDemo();
     }
@@ -334,7 +328,6 @@ export class SoftwareMainPage {
             });
         }
         
-        // Кнопка проверки всех палиндромов
         const checkAllBtn = document.getElementById('check-all-palindromes');
         if (checkAllBtn) {
             checkAllBtn.addEventListener('click', () => {
@@ -342,7 +335,6 @@ export class SoftwareMainPage {
             });
         }
         
-        // Настройка кастомной проверки палиндрома
         this.setupCustomPalindromeCheck();
     }
 
