@@ -1,30 +1,51 @@
 import { SoftwareProductComponent } from "../../software_components/software_product/software.js";
 import { SoftwareMainPage } from "../software_main/software.js";
 import { SoftwareHeaderComponent } from "../../software_components/software_header/software.js";
+import { ajax } from "../../software_modules/software_ajax.js";
+import { apiUrls } from "../../software_modules/software_apiUrls.js";
 
 export class SoftwareProductPage {
-    constructor(parent, id, products = null) {
+    constructor(parent, id) {
         this.parent = parent;
         this.id = id;
-        this.products = products;
+        this.product = null;
     }
 
     getData() {
-        // Если передан массив продуктов, ищем в нем
-        if (this.products && Array.isArray(this.products)) {
-            const product = this.products.find(p => p.id === parseInt(this.id));
-            if (product) {
-                return product;
+        ajax.get(apiUrls.getProductById(this.id), (data, status) => {
+            if (status === 200 && data) {
+                this.product = data;
+                this.renderProduct();
+            } else {
+                console.error('Ошибка загрузки продукта:', status);
+                this.showNotFound();
+            }
+        });
+    }
+    
+    showNotFound() {
+        const productContainer = document.getElementById('product-container');
+        if (productContainer) {
+            productContainer.innerHTML = `
+                <div class="alert alert-danger" style="border-radius: 12px;">
+                    <h4>Продукт не найден</h4>
+                    <p>Продукт с ID ${this.id} не существует или был удален.</p>
+                    <button id="back-to-home" class="btn" style="background: #7cbd97; color: #1a3a2a;">Вернуться на главную</button>
+                </div>
+            `;
+            const backBtn = document.getElementById('back-to-home');
+            if (backBtn) {
+                backBtn.addEventListener('click', () => this.goHome());
             }
         }
-        
-        // Если продукт не найден, возвращаем заглушку
-        return {
-            id: this.id,
-            src: "https://developer.asustor.com/uploadIcons/0020_999_1725444614_apache_256.png",
-            title: `Продукт не найден`,
-            text: `Продукт с ID ${this.id} был удален. Вернитесь на главную страницу.`
-        };
+    }
+    
+    renderProduct() {
+        const productContainer = document.getElementById('product-container');
+        if (productContainer && this.product) {
+            const product = new SoftwareProductComponent(productContainer);
+            product.render(this.product);
+        }
     }
     
     get pageRoot() {
@@ -54,11 +75,7 @@ export class SoftwareProductPage {
         
         const html = this.getHTML();
         this.parent.insertAdjacentHTML('beforeend', html);
-
-        const productContainer = document.getElementById('product-container');
         
-        const data = this.getData();
-        const product = new SoftwareProductComponent(productContainer);
-        product.render(data);
+        this.getData();
     }
 }

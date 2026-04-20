@@ -9,7 +9,7 @@ export class SoftwareHeaderComponent {
                 <div class="container">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <a href="#" id="home-link" style="text-decoration: none; color: #1a3a2a; font-size: 1.5rem; font-weight: bold; cursor: pointer;">
-                            Серверное программное обеспечение
+                            🖥️ Серверное программное обеспечение
                         </a>
                     </div>
                 </div>
