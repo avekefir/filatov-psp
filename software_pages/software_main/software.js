@@ -55,43 +55,37 @@ export class SoftwareMainPage {
                 id: 1,
                 src: "https://developer.asustor.com/uploadIcons/0020_999_1725444614_apache_256.png",
                 title: "Apache HTTP Server",
-                text: "Веб-сервер с открытым исходным кодом, обрабатывающий HTTP-запросы",
-                categories: ["веб-сервер", "http", "open-source", "linux"]
+                text: "Веб-сервер с открытым исходным кодом, обрабатывающий HTTP-запросы"
             },
             {
                 id: 2,
                 src: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/960px-Postgresql_elephant.svg.png",
                 title: "PostgreSQL",
-                text: "Объектно-реляционная СУБД для хранения и сложных запросов к данным",
-                categories: ["СУБД", "базы данных", "sql", "open-source"]
+                text: "Объектно-реляционная СУБД для хранения и сложных запросов к данным"
             },
             {
                 id: 3,
                 src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ4UMCnzkph-fMmiiTeEz3An85NPMNOnJJCw&s",
                 title: "Postfix",
-                text: "Сервер пересылки почты (MTA), маршрутизирует email-сообщения",
-                categories: ["почтовый сервер", "smtp", "linux", "open-source"]
+                text: "Сервер пересылки почты (MTA), маршрутизирует email-сообщения"
             },
             {
                 id: 4,
                 src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfeXbqbEPXJ8MzbFPMHmi6ZQng9F8ibWeQFA&s",
                 title: "Nginx",
-                text: "Высокопроизводительный веб-сервер и обратный прокси",
-                categories: ["веб-сервер", "reverse-proxy", "load-balancer"]
+                text: "Высокопроизводительный веб-сервер и обратный прокси"
             },
             {
                 id: 5,
                 src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJFQPzAf6HbTfeDEaeLns1SZF21ADThtgkVQ&s",
                 title: "MySQL",
-                text: "Популярная система управления реляционными базами данных",
-                categories: ["СУБД", "базы данных", "sql", "реляционная"]
+                text: "Популярная система управления реляционными базами данных"
             },
             {
                 id: 6,
                 src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHkzcshTYAlDvn3fmpzQvKiNa1FF4yZSh0-A&s",
                 title: "Microsoft Exchange",
-                text: "Платформа для корпоративной почты, календарей и контактов",
-                categories: ["почтовый сервер", "microsoft", "корпоративный"]
+                text: "Платформа для корпоративной почты, календарей и контактов"
             }
         ];
     }
@@ -127,8 +121,7 @@ export class SoftwareMainPage {
             ...firstProduct,
             id: newId,
             title: `${firstProduct.title} (копия)`,
-            text: firstProduct.text,
-            categories: [...firstProduct.categories]
+            text: firstProduct.text
         };
         
         this.products.push(newProduct);

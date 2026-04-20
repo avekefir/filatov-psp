@@ -1,6 +1,5 @@
 import { SoftwareProductComponent } from "../../software_components/software_product/software.js";
 import { SoftwareMainPage } from "../software_main/software.js";
-import { Software3DViewerComponent } from "../../software_components/software-3d_viewer/software.js";
 import { SoftwareHeaderComponent } from "../../software_components/software_header/software.js";
 
 export class SoftwareProductPage {
@@ -22,10 +21,9 @@ export class SoftwareProductPage {
         // Если продукт не найден, возвращаем заглушку
         return {
             id: this.id,
-            src: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Apache_HTTP_Server_logo_%282019-present%29.svg/1200px-Apache_HTTP_Server_logo_%282019-present%29.svg.png",
+            src: "https://developer.asustor.com/uploadIcons/0020_999_1725444614_apache_256.png",
             title: `Продукт не найден`,
-            text: `Продукт с ID ${this.id} был удален. Вернитесь на главную страницу.`,
-            categories: ["серверное ПО", "программное обеспечение"]
+            text: `Продукт с ID ${this.id} был удален. Вернитесь на главную страницу.`
         };
     }
     
@@ -38,7 +36,6 @@ export class SoftwareProductPage {
             <div id="product-page">
                 <div class="container">
                     <div id="product-container"></div>
-                    <div id="model-viewer-container" class="mt-4"></div>
                 </div>
             </div>
         `;
@@ -63,9 +60,5 @@ export class SoftwareProductPage {
         const data = this.getData();
         const product = new SoftwareProductComponent(productContainer);
         product.render(data);
-
-        const modelViewerContainer = document.getElementById('model-viewer-container');
-        const viewer3d = new Software3DViewerComponent(modelViewerContainer, this.id);
-        viewer3d.render();
     }
 }
