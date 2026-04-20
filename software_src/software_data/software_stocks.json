@@ -1,20 +1,38 @@
 [
   {
     "id": 1,
-    "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYNGtQRIVpT5HGQHTBovxirUzbohLevSU9AQ&s",
-    "title": "Word",
-    "text": "Текстовый редактор"
+    "src": "https://developer.asustor.com/uploadIcons/0020_999_1725444614_apache_256.png",
+    "title": "Apache HTTP Server",
+    "text": "Веб-сервер с открытым исходным кодом, обрабатывающий HTTP-запросы и отдающий статический контент."
   },
   {
     "id": 2,
     "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/960px-Postgresql_elephant.svg.png",
     "title": "PostgreSQL",
-    "text": "СУБД"
+    "text": "Объектно-реляционная СУБД для хранения и сложных запросов к данным."
   },
   {
     "id": 3,
-    "src": "https://rskrf.ru/upload/iblock/e6c/3pughvx5iu7dzqo6adwlwxe3a38q7xc6.png",
-    "title": "Телемост",
-    "text": "Звонки и видеовстречи"
+    "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ4UMCnzkph-fMmiiTeEz3An85NPMNOnJJCw&s",
+    "title": "Postfix",
+    "text": "Сервер пересылки почты (MTA), маршрутизирует email-сообщения между системами."
+  },
+  {
+    "id": 4,
+    "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfeXbqbEPXJ8MzbFPMHmi6ZQng9F8ibWeQFA&s",
+    "title": "Nginx",
+    "text": "Высокопроизводительный веб-сервер и обратный прокси-сервер."
+  },
+  {
+    "id": 5,
+    "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJFQPzAf6HbTfeDEaeLns1SZF21ADThtgkVQ&s",
+    "title": "MySQL",
+    "text": "Популярная система управления реляционными базами данных."
+  },
+  {
+    "id": 6,
+    "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHkzcshTYAlDvn3fmpzQvKiNa1FF4yZSh0-A&s",
+    "title": "Microsoft Exchange",
+    "text": "Платформа для корпоративной почты, календарей и контактов."
   }
 ]
