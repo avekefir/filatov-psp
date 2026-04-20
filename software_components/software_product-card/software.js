@@ -15,8 +15,8 @@ export class SoftwareProductCardComponent {
                         <h5 class="card-title" style="color: #1a3a2a; font-weight: bold;">${data.title}</h5>
                         <p class="card-text text-muted" style="margin-bottom: 15px;">${data.text}</p>
                         
-                        <button class="btn w-100 mt-2 edit-card-btn" data-id="${data.id}" style="background: #ffc107; color: #1a3a2a; border: none; padding: 10px; border-radius: 8px; font-weight: bold; transition: all 0.2s; margin-bottom: 8px;">
-                            ✏️ Редактировать
+                        <button class="btn w-100 mt-2 edit-card-btn" data-id="${data.id}" style="background: #62a17d; color: #1a3a2a; border: none; padding: 10px; border-radius: 8px; font-weight: bold; transition: all 0.2s; margin-bottom: 8px;">
+                            Редактировать
                         </button>
                         
                         <button class="btn w-100 mt-2" data-id="${data.id}" style="background: #a8e0c0; color: #1a3a2a; border: none; padding: 10px; border-radius: 8px; font-weight: bold; transition: all 0.2s;">

@@ -14,7 +14,7 @@ export class SoftwareFormComponent {
         return `
             <div class="card shadow-sm" style="border-radius: 12px; border: 2px solid rgba(140, 140, 140, 0.2); overflow: hidden;">
                 <div class="card-header" style="background: #a8e0c0; padding: 15px;">
-                    <h4 class="mb-0" style="color: #1a3a2a;">${isEdit ? '✏️ Редактирование программы' : '➕ Добавление новой программы'}</h4>
+                    <h4 class="mb-0" style="color: #1a3a2a;">${isEdit ? 'Редактирование программы' : 'Добавление новой программы'}</h4>
                 </div>
                 <div class="card-body" style="background: #ffffff;">
                     <form id="product-form">
@@ -32,10 +32,10 @@ export class SoftwareFormComponent {
                         </div>
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn" style="background: #7cbd97; color: #1a3a2a; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold;">
-                                ${isEdit ? '💾 Сохранить изменения' : '✅ Создать'}
+                                ${isEdit ? 'Сохранить изменения' : 'Создать'}
                             </button>
                             <button type="button" id="cancel-form-btn" class="btn" style="background: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold;">
-                                ❌ Отмена
+                                Отмена
                             </button>
                         </div>
                     </form>

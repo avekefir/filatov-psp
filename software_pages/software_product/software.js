@@ -12,7 +12,9 @@ export class SoftwareProductPage {
     }
 
     getData() {
+        console.log('Loading product with id:', this.id);
         ajax.get(apiUrls.getProductById(this.id), (data, status) => {
+            console.log('GET product response:', { status, data });
             if (status === 200 && data) {
                 this.product = data;
                 this.renderProduct();

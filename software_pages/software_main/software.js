@@ -10,6 +10,7 @@ export class SoftwareMainPage {
         this.parent = parent;
         this.header = null;
         this.products = [];
+        this.allProducts = []; // Храним все продукты для поиска на клиенте
     }
 
     get pageRoot() {
@@ -51,17 +52,57 @@ export class SoftwareMainPage {
         `;
     }
 
-    loadProducts(searchTerm = '') {
-        const url = searchTerm ? `${apiUrls.getProducts()}?title_like=${encodeURIComponent(searchTerm)}` : apiUrls.getProducts();
-        ajax.get(url, (data, status) => {
+    loadProducts() {
+        ajax.get(apiUrls.getProducts(), (data, status) => {
+            console.log('GET products response:', { status, data });
             if (status === 200 && data) {
-                this.products = data;
+                this.allProducts = data;
+                this.products = [...data];
                 this.renderProducts();
-                this.updateSearchStats(searchTerm);
+                this.updateSearchStats('');
             } else {
                 console.error('Ошибка загрузки продуктов:', status);
+                // Если данных нет, показываем пустой список
+                this.allProducts = [];
+                this.products = [];
+                this.renderProducts();
+                this.updateSearchStats('');
             }
         });
+    }
+
+    filterProducts(searchTerm) {
+        if (!searchTerm || searchTerm.trim() === '') {
+            this.products = [...this.allProducts];
+        } else {
+            const term = searchTerm.toLowerCase().trim();
+            this.products = this.allProducts.filter(product => 
+                product.title && product.title.toLowerCase().includes(term)
+            );
+        }
+        this.renderProducts();
+        this.updateSearchStats(searchTerm);
+    }
+
+    updateSearchStats(searchTerm) {
+        const statsDiv = document.getElementById('search-stats');
+        const noResultsDiv = document.getElementById('no-results');
+        
+        if (statsDiv) {
+            if (searchTerm && searchTerm.trim() !== '') {
+                statsDiv.innerHTML = `🔍 Найдено: ${this.products.length} из ${this.allProducts.length}`;
+            } else {
+                statsDiv.innerHTML = ``;
+            }
+        }
+        
+        if (noResultsDiv) {
+            if (this.products.length === 0 && this.allProducts.length > 0) {
+                noResultsDiv.style.display = 'block';
+            } else {
+                noResultsDiv.style.display = 'none';
+            }
+        }
     }
 
     goToProductPage(productId) {
@@ -80,39 +121,23 @@ export class SoftwareMainPage {
     }
 
     deleteProduct(productId) {
+        console.log('Deleting product:', productId);
         ajax.delete(apiUrls.deleteProduct(productId), (data, status) => {
-            if (status === 200) {
-                this.loadProducts();
+            console.log('DELETE response:', { status, data });
+            // DELETE может возвращать 200, 204 или 404
+            if (status === 200 || status === 204) {
+                console.log('Продукт успешно удален');
+                // Удаляем из локальных массивов
+                this.allProducts = this.allProducts.filter(p => p.id !== productId);
+                this.products = this.products.filter(p => p.id !== productId);
+                this.renderProducts();
+                this.updateSearchStats(document.getElementById('search-input')?.value || '');
             } else {
                 console.error('Ошибка удаления продукта:', status);
-                alert('Ошибка при удалении');
+                // Все равно пробуем обновить список с сервера
+                this.loadProducts();
             }
         });
-    }
-
-    filterProducts(searchTerm) {
-        this.loadProducts(searchTerm);
-    }
-
-    updateSearchStats(searchTerm) {
-        const statsDiv = document.getElementById('search-stats');
-        const noResultsDiv = document.getElementById('no-results');
-        
-        if (statsDiv) {
-            if (searchTerm && searchTerm.trim() !== '') {
-                statsDiv.innerHTML = `Найдено: ${this.products.length} программ(ы)`;
-            } else {
-                statsDiv.innerHTML = `Всего программ: ${this.products.length}`;
-            }
-        }
-        
-        if (noResultsDiv) {
-            if (this.products.length === 0) {
-                noResultsDiv.style.display = 'block';
-            } else {
-                noResultsDiv.style.display = 'none';
-            }
-        }
     }
 
     renderProducts() {
@@ -120,6 +145,10 @@ export class SoftwareMainPage {
         if (!container) return;
         
         container.innerHTML = '';
+        
+        if (this.products.length === 0) {
+            return;
+        }
         
         this.products.forEach((product) => {
             const productCard = new SoftwareProductCardComponent(container);
