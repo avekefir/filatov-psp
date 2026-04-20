@@ -15,7 +15,10 @@ export class Software3DViewerComponent {
         this.modelMapping = {
             1: "./software_models/MacBook Pro.glb",      
             2: "./software_models/Gaming Computer.glb",  
-            3: "./software_models/test1.glb"             
+            3: "./software_models/test1.glb",
+            4: "./software_models/MacBook Pro.glb",      
+            5: "./software_models/Gaming Computer.glb",  
+            6: "./software_models/test1.glb",
         };
     }
     
@@ -23,7 +26,7 @@ export class Software3DViewerComponent {
         return `
             <div class="card mt-4">
                 <div class="card-header">
-                    <strong>3D Модель</strong>
+                    <strong>🎮 3D Модель</strong>
                     <div class="btn-group float-right">
                         <button id="zoom-in-3d" class="btn btn-sm btn-outline-secondary">+</button>
                         <button id="zoom-out-3d" class="btn btn-sm btn-outline-secondary">-</button>
@@ -74,7 +77,6 @@ export class Software3DViewerComponent {
         const backLight = new THREE.DirectionalLight(0xffffff, 0.3);
         backLight.position.set(-2, 2, -4);
         this.scene.add(backLight);
-        
         
         this.loadModel();
         

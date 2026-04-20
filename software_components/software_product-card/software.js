@@ -3,31 +3,65 @@ export class SoftwareProductCardComponent {
         this.parent = parent;
     }
 
-    getHTML(data) {
-        return (
-            `
-                <div class="card m-2" style="width: 300px;" data-id="${data.id}">
-                    <img src="${data.src}" class="card-img-top" alt="картинка" data-id="${data.id}">
-                    <div class="card-body" data-id="${data.id}">
-                        <h5 class="card-title" data-id="${data.id}">${data.title}</h5>
-                        <p class="card-text" data-id="${data.id}">${data.text}</p>
-                        <button class="btn btn-primary" data-id="${data.id}">Подробнее</button>
+    getHTML(data, index) {
+        const isPalindrome = this.checkPalindrome(data.title);
+        
+        return `
+            <div class="col-md-4 mb-4" data-card-id="${data.id}" data-card-index="${index}">
+                <div class="card product-card h-100 shadow-sm" data-id="${data.id}" style="position: relative; border-radius: 12px; border: 2px solid rgba(140, 140, 140, 0.2); cursor: pointer;">
+                    <button class="delete-card-btn" data-id="${data.id}" style="position: absolute; top: 10px; right: 10px; background: #dc3545; color: white; border: none; border-radius: 8px; width: 30px; height: 30px; font-size: 18px; font-weight: bold; cursor: pointer; z-index: 20; display: flex; align-items: center; justify-content: center; transition: all 0.2s;">
+                        ×
+                    </button>
+                    ${isPalindrome ? '<span style="position: absolute; top: 10px; right: 10px; background: #7cbd97; color: #1a3a2a; padding: 5px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: bold; z-index: 10;">🎯 Палиндром</span>' : ''}
+                    <img src="${data.src}" class="card-img-top" alt="${data.title}" style="height: 200px; object-fit: cover; border-radius: 10px 10px 0 0;">
+                    <div class="card-body" style="background: #ffffff;">
+                        <h5 class="card-title" style="color: #1a3a2a; font-weight: bold;">${data.title}</h5>
+                        <p class="card-text text-muted" style="margin-bottom: 15px;">${data.text}</p>
+                        
+                        <button class="btn w-100 mt-2" data-id="${data.id}" style="background: #a8e0c0; color: #1a3a2a; border: none; padding: 10px; border-radius: 8px; font-weight: bold; transition: all 0.2s;">
+                            Подробнее
+                        </button>
                     </div>
                 </div>
-            `
-        );
+            </div>
+        `;
     }
     
-    addListeners(data, listener) {
-        const card = this.parent.lastElementChild;
-        if (card) {
-            card.addEventListener('click', listener);
+    checkPalindrome(title) {
+        const cleaned = String(title).toLowerCase().replace(/\s/g, '');
+        return cleaned === cleaned.split('').reverse().join('');
+    }
+    
+    addListeners(data, listener, deleteListener) {
+        const cardElement = this.parent.lastElementChild;
+        if (cardElement) {
+            const button = cardElement.querySelector('.btn');
+            if (button) {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    listener(data.id);
+                });
+            }
+            
+            const deleteBtn = cardElement.querySelector('.delete-card-btn');
+            if (deleteBtn) {
+                deleteBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    deleteListener(data.id);
+                });
+            }
+            
+            cardElement.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('btn') && !e.target.classList.contains('delete-card-btn')) {
+                    listener(data.id);
+                }
+            });
         }
     }
 
-    render(data, listener) {
-        const html = this.getHTML(data);
+    render(data, index, listener, deleteListener) {
+        const html = this.getHTML(data, index);
         this.parent.insertAdjacentHTML('beforeend', html);
-        this.addListeners(data, listener);
+        this.addListeners(data, listener, deleteListener);
     }
 }
