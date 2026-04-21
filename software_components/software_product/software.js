@@ -18,7 +18,6 @@ export class SoftwareProductComponent {
                             <h3 class="card-title" style="color: #1a3a2a; font-weight: bold;">${data.title}</h3>
                             <p class="card-text lead" style="color: #333; line-height: 1.6;">${data.text}</p>
                             
-                            <!-- Демонстрация функций ConcatArrays и IsPalindrome -->
                             <div class="row mt-4">
                                 <div class="col-md-6">
                                     <div style="background: #f0f8f4; border-radius: 8px; padding: 15px;">
