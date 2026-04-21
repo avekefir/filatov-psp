@@ -9,6 +9,7 @@ const PORT = 3000;
 // Определяем путь к файлу данных
 const DATA_FILE_PATH = path.join(__dirname, 'software_data/software_stocks.json');
 
+app.use(express.static(path.join(__dirname, '../public')));
 // Инициализируем сервис с путем к файлу данных
 stocksService.init(DATA_FILE_PATH);
 
