@@ -1,4 +1,4 @@
-.my-btn { 
+.software { 
   margin-right: 5px;           
   margin-top: 5px;             
   width: 50px;                 
@@ -14,7 +14,7 @@
   user-select: none;           
 } 
 
-.my-btn:hover {
+.software:hover {
   background: #90d0ae;         
 }
 
