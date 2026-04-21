@@ -18,7 +18,6 @@ export class SoftwareMainPage {
         return `
             <div id="main-page">
                 <div class="container">
-                    <!-- Панель управления -->
                     <div class="row mb-4">
                         <div class="col-md-12">
                             <div style="background: #f0f8f4; border-radius: 12px; padding: 15px; border: 2px solid rgba(140, 140, 140, 0.2);">
@@ -37,10 +36,8 @@ export class SoftwareMainPage {
                         </div>
                     </div>
                     
-                    <!-- Контейнер с карточками -->
                     <div class="row" id="products-container"></div>
                     
-                    <!-- Сообщение если ничего не найдено -->
                     <div id="no-results" class="text-center py-5" style="display: none;">
                         <p style="color: #999; font-size: 1.2rem;">Ничего не найдено по вашему запросу</p>
                     </div>
