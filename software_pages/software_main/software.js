@@ -2,7 +2,7 @@ import { SoftwareProductCardComponent } from "../../software_components/software
 import { SoftwareProductPage } from "../software_product/software.js";
 import { SoftwareHeaderComponent } from "../../software_components/software_header/software.js";
 import { SoftwareFormPage } from "../software_form/software.js";
-import { ajax } from "../../software_modules/software_ajax.js";
+import { fetchService } from "../../software_modules/software_fetch.js";
 import { apiUrls } from "../../software_modules/software_apiUrls.js";
 
 export class SoftwareMainPage {
@@ -10,7 +10,7 @@ export class SoftwareMainPage {
         this.parent = parent;
         this.header = null;
         this.products = [];
-        this.allProducts = []; // Храним все продукты для поиска на клиенте
+        this.allProducts = [];
     }
 
     get pageRoot() {
@@ -21,7 +21,6 @@ export class SoftwareMainPage {
         return `
             <div id="main-page">
                 <div class="container">
-                    <!-- Панель управления -->
                     <div class="row mb-4">
                         <div class="col-md-12">
                             <div style="background: #f0f8f4; border-radius: 12px; padding: 15px; border: 2px solid rgba(140, 140, 140, 0.2);">
@@ -40,10 +39,8 @@ export class SoftwareMainPage {
                         </div>
                     </div>
                     
-                    <!-- Контейнер с карточками -->
                     <div class="row" id="products-container"></div>
                     
-                    <!-- Сообщение если ничего не найдено -->
                     <div id="no-results" class="text-center py-5" style="display: none;">
                         <p style="color: #999; font-size: 1.2rem;">Ничего не найдено по вашему запросу</p>
                     </div>
@@ -52,23 +49,23 @@ export class SoftwareMainPage {
         `;
     }
 
-    loadProducts() {
-        ajax.get(apiUrls.getProducts(), (data, status) => {
+    async loadProducts() {
+        try {
+            const { data, status } = await fetchService.get(apiUrls.getProducts());
             console.log('GET products response:', { status, data });
             if (status === 200 && data) {
                 this.allProducts = data;
                 this.products = [...data];
                 this.renderProducts();
                 this.updateSearchStats('');
-            } else {
-                console.error('Ошибка загрузки продуктов:', status);
-                // Если данных нет, показываем пустой список
-                this.allProducts = [];
-                this.products = [];
-                this.renderProducts();
-                this.updateSearchStats('');
             }
-        });
+        } catch (error) {
+            console.error('Ошибка загрузки продуктов:', error);
+            this.allProducts = [];
+            this.products = [];
+            this.renderProducts();
+            this.updateSearchStats('');
+        }
     }
 
     filterProducts(searchTerm) {
@@ -92,7 +89,7 @@ export class SoftwareMainPage {
             if (searchTerm && searchTerm.trim() !== '') {
                 statsDiv.innerHTML = `🔍 Найдено: ${this.products.length} из ${this.allProducts.length}`;
             } else {
-                statsDiv.innerHTML = ``;
+                statsDiv.innerHTML = `📋 Всего программ: ${this.allProducts.length}`;
             }
         }
         
@@ -120,24 +117,22 @@ export class SoftwareMainPage {
         formPage.render();
     }
 
-    deleteProduct(productId) {
+    async deleteProduct(productId) {
         console.log('Deleting product:', productId);
-        ajax.delete(apiUrls.deleteProduct(productId), (data, status) => {
-            console.log('DELETE response:', { status, data });
-            // DELETE может возвращать 200, 204 или 404
+        try {
+            const { status } = await fetchService.delete(apiUrls.deleteProduct(productId));
+            console.log('DELETE response status:', status);
             if (status === 200 || status === 204) {
                 console.log('Продукт успешно удален');
-                // Удаляем из локальных массивов
                 this.allProducts = this.allProducts.filter(p => p.id !== productId);
                 this.products = this.products.filter(p => p.id !== productId);
                 this.renderProducts();
                 this.updateSearchStats(document.getElementById('search-input')?.value || '');
-            } else {
-                console.error('Ошибка удаления продукта:', status);
-                // Все равно пробуем обновить список с сервера
-                this.loadProducts();
             }
-        });
+        } catch (error) {
+            console.error('Ошибка удаления продукта:', error);
+            this.loadProducts();
+        }
     }
 
     renderProducts() {

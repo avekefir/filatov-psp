@@ -1,7 +1,7 @@
 import { SoftwareProductComponent } from "../../software_components/software_product/software.js";
 import { SoftwareMainPage } from "../software_main/software.js";
 import { SoftwareHeaderComponent } from "../../software_components/software_header/software.js";
-import { ajax } from "../../software_modules/software_ajax.js";
+import { fetchService } from "../../software_modules/software_fetch.js";
 import { apiUrls } from "../../software_modules/software_apiUrls.js";
 
 export class SoftwareProductPage {
@@ -11,18 +11,19 @@ export class SoftwareProductPage {
         this.product = null;
     }
 
-    getData() {
+    async getData() {
         console.log('Loading product with id:', this.id);
-        ajax.get(apiUrls.getProductById(this.id), (data, status) => {
+        try {
+            const { data, status } = await fetchService.get(apiUrls.getProductById(this.id));
             console.log('GET product response:', { status, data });
             if (status === 200 && data) {
                 this.product = data;
                 this.renderProduct();
-            } else {
-                console.error('Ошибка загрузки продукта:', status);
-                this.showNotFound();
             }
-        });
+        } catch (error) {
+            console.error('Ошибка загрузки продукта:', error);
+            this.showNotFound();
+        }
     }
     
     showNotFound() {

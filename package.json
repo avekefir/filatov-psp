@@ -2,13 +2,18 @@
   "name": "filatov-psp",
   "version": "1.0.0",
   "description": "ЛР 3. Простое веб-приложение. Верстка",
-  "main": "index.js",
+  "main": "software_main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^5.3.8"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
   }
 }

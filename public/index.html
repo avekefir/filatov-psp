@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Software App - Каталог серверного ПО</title>
+    <style>
+        body {
+            background: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .product-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .btn:hover {
+            filter: brightness(95%);
+            transform: translateY(-1px);
+        }
+        
+        .btn:active {
+            filter: brightness(92%);
+            transform: translateY(1px);
+        }
+        
+        .delete-card-btn:hover {
+            background: #c82333 !important;
+            transform: scale(1.05);
+        }
+        
+        .delete-card-btn:active {
+            transform: scale(0.95);
+        }
+        
+        #search-input:focus {
+            outline: none;
+            border-color: #7cbd97;
+            box-shadow: 0 0 0 3px rgba(124, 189, 151, 0.2);
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .col-md-4 {
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        textarea {
+            resize: vertical;
+        }
+    </style>
+  <script type="module" crossorigin src="/assets/index-Cu_Iamgs.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-CfkJyshZ.css">
+</head>
+<body>
+    <div id="root"></div>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

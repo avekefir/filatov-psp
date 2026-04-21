@@ -1,7 +1,7 @@
 import { SoftwareFormComponent } from "../../software_components/software_form/software.js";
 import { SoftwareMainPage } from "../software_main/software.js";
 import { SoftwareHeaderComponent } from "../../software_components/software_header/software.js";
-import { ajax } from "../../software_modules/software_ajax.js";
+import { fetchService } from "../../software_modules/software_fetch.js";
 import { apiUrls } from "../../software_modules/software_apiUrls.js";
 
 export class SoftwareFormPage {
@@ -11,51 +11,52 @@ export class SoftwareFormPage {
         this.product = null;
     }
 
-    loadProduct() {
+    async loadProduct() {
         if (this.id) {
-            ajax.get(apiUrls.getProductById(this.id), (data, status) => {
+            try {
+                const { data, status } = await fetchService.get(apiUrls.getProductById(this.id));
                 console.log('GET product for edit:', { status, data });
                 if (status === 200 && data) {
                     this.product = data;
                     this.renderForm();
-                } else {
-                    console.error('Ошибка загрузки продукта для редактирования:', status);
-                    alert('Не удалось загрузить данные программы');
-                    this.goHome();
                 }
-            });
+            } catch (error) {
+                console.error('Ошибка загрузки продукта для редактирования:', error);
+                alert('Не удалось загрузить данные программы');
+                this.goHome();
+            }
         } else {
             this.renderForm();
         }
     }
     
-    handleSubmit(formData) {
+    async handleSubmit(formData) {
         console.log('Submitting form:', { id: this.id, formData });
         
         if (this.id) {
-            // Редактирование существующего продукта (используем PUT)
-            ajax.put(apiUrls.updateProduct(this.id), formData, (data, status) => {
-                console.log('PUT response:', { status, data });
+            try {
+                const { status } = await fetchService.put(apiUrls.updateProduct(this.id), formData);
+                console.log('PUT response status:', status);
                 if (status === 200) {
                     alert('Программа успешно обновлена!');
                     this.goHome();
-                } else {
-                    console.error('Ошибка обновления:', status);
-                    alert('Ошибка при обновлении программы. Статус: ' + status);
                 }
-            });
+            } catch (error) {
+                console.error('Ошибка обновления:', error);
+                alert('Ошибка при обновлении программы');
+            }
         } else {
-            // Создание нового продукта
-            ajax.post(apiUrls.createProduct(), formData, (data, status) => {
-                console.log('POST response:', { status, data });
+            try {
+                const { status } = await fetchService.post(apiUrls.createProduct(), formData);
+                console.log('POST response status:', status);
                 if (status === 201 || status === 200) {
                     alert('Программа успешно создана!');
                     this.goHome();
-                } else {
-                    console.error('Ошибка создания:', status);
-                    alert('Ошибка при создании программы. Статус: ' + status);
                 }
-            });
+            } catch (error) {
+                console.error('Ошибка создания:', error);
+                alert('Ошибка при создании программы');
+            }
         }
     }
     
