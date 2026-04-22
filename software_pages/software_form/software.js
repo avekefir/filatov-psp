@@ -22,7 +22,6 @@ export class SoftwareFormPage {
                 }
             } catch (error) {
                 console.error('Ошибка загрузки продукта для редактирования:', error);
-                alert('Не удалось загрузить данные программы');
                 this.goHome();
             }
         } else {
@@ -38,24 +37,20 @@ export class SoftwareFormPage {
                 const { status } = await fetchService.put(apiUrls.updateProduct(this.id), formData);
                 console.log('PUT response status:', status);
                 if (status === 200) {
-                    alert('Программа успешно обновлена!');
                     this.goHome();
                 }
             } catch (error) {
                 console.error('Ошибка обновления:', error);
-                alert('Ошибка при обновлении программы');
             }
         } else {
             try {
                 const { status } = await fetchService.post(apiUrls.createProduct(), formData);
                 console.log('POST response status:', status);
                 if (status === 201 || status === 200) {
-                    alert('Программа успешно создана!');
                     this.goHome();
                 }
             } catch (error) {
                 console.error('Ошибка создания:', error);
-                alert('Ошибка при создании программы');
             }
         }
     }
