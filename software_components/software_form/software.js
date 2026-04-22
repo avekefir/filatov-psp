@@ -31,9 +31,6 @@ export class SoftwareFormComponent {
                             <input type="url" class="form-control" id="product-src" value="${this.escapeHtml(src)}" required style="border-radius: 8px; border: 2px solid #a8e0c0;">
                         </div>
                         <div class="d-flex gap-2">
-                            <button type="submit" class="btn" style="background: #7cbd97; color: #1a3a2a; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold;">
-                                ${isEdit ? 'Сохранить изменения' : 'Создать'}
-                            </button>
                             <button type="button" id="cancel-form-btn" class="btn" style="background: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold;">
                                 Отмена
                             </button>

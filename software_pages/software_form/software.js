@@ -20,7 +20,6 @@ export class SoftwareFormPage {
                     this.renderForm();
                 } else {
                     console.error('Ошибка загрузки продукта для редактирования:', status);
-                    alert('Не удалось загрузить данные программы');
                     this.goHome();
                 }
             });
@@ -37,11 +36,9 @@ export class SoftwareFormPage {
             ajax.put(apiUrls.updateProduct(this.id), formData, (data, status) => {
                 console.log('PUT response:', { status, data });
                 if (status === 200) {
-                    alert('Программа успешно обновлена!');
                     this.goHome();
                 } else {
                     console.error('Ошибка обновления:', status);
-                    alert('Ошибка при обновлении программы. Статус: ' + status);
                 }
             });
         } else {
@@ -49,11 +46,9 @@ export class SoftwareFormPage {
             ajax.post(apiUrls.createProduct(), formData, (data, status) => {
                 console.log('POST response:', { status, data });
                 if (status === 201 || status === 200) {
-                    alert('Программа успешно создана!');
                     this.goHome();
                 } else {
                     console.error('Ошибка создания:', status);
-                    alert('Ошибка при создании программы. Статус: ' + status);
                 }
             });
         }
